@@ -1,0 +1,31 @@
+### Create a new User
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "firstName": "jao",
+  "lastName": "souza",
+  "birthDate": "2004-02-28T20:12:20.000",
+  "city": "São Paulo",
+  "country": "Brazil",
+  "email": "joao@gamil.com",
+  "password": "12345678",
+  "passwordConfirm": "12345678"
+}
+
+### Find all the users
+GET http://localhost:3000/users
+
+### Find the respective user
+GET http://localhost:3000/users/0ff7492d-a8e6-4731-8b7d-598746bb950e
+
+### Update an user
+PUT http://localhost:3000/users/d59ad76d-17ca-45bb-b6b2-c64e09ec3cee
+Content-Type: application/json
+
+{
+  "firstName": "joo",
+  "lastName": "soza",
+  "city": "São Pulo",
+  "country": "Bazil",
+}
