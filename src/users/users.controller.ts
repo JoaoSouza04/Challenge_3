@@ -9,6 +9,7 @@ import {
   ParseUUIDPipe
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { LoginUserDto } from './dtos/login-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UsersService } from './users.service';
 
@@ -17,9 +18,9 @@ export class UsersController {
   constructor(private usersService: UsersService) { }
 
   @Post()
-  async createUser(@Body() body: CreateUserDto) {
+  async signUp(@Body() body: CreateUserDto) {
 
-    return await this.usersService.create(
+    return await this.usersService.signUp(
       body.firstName,
       body.lastName,
       body.birthDate,
@@ -31,14 +32,9 @@ export class UsersController {
     )
   }
 
-  @Get()
-  async findAll() {
-    return await this.usersService.findAll();
-  }
-
-  @Get('/:id')
-  async findOne(@Param('id', new ParseUUIDPipe) id: string) {
-    return await this.usersService.findOne(id);
+  @Post('/login')
+  async signIn(@Body() body: LoginUserDto) {
+    return await this.usersService.signIn(body.email, body.password);
   }
 
   @Put('/:id')
