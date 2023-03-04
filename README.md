@@ -1,4 +1,4 @@
-# **Challenge_2**
+# **Challenge_3**
 
 3° Desafio do estágio da Compass UOL na trilha de Node.js!
 
