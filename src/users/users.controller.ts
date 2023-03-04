@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Post,
-  Get,
   Delete,
   Put,
   Param,
@@ -13,7 +12,7 @@ import { LoginUserDto } from './dtos/login-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UsersService } from './users.service';
 
-@Controller('users')
+@Controller('/api/v1/users')
 export class UsersController {
   constructor(private usersService: UsersService) { }
 
@@ -32,7 +31,7 @@ export class UsersController {
     )
   }
 
-  @Post('/login')
+  @Post('/signIn')
   async signIn(@Body() body: LoginUserDto) {
     return await this.usersService.signIn(body.email, body.password);
   }
@@ -42,7 +41,7 @@ export class UsersController {
     return await this.usersService.update(id, body)
   }
 
-  @Delete()
+  @Delete('/:id')
   async delete(@Param('id', new ParseUUIDPipe) id: string) {
     await this.usersService.delete(id)
   }
