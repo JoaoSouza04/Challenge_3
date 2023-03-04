@@ -1,8 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { compareSync } from 'bcrypt';
 
 
 @Injectable()
@@ -10,7 +11,7 @@ export class UsersService {
   constructor(@InjectRepository(User) private repo: Repository<User>) { }
 
 
-  async create(
+  async signUp(
     firstName: string, lastName: string,
     birthDate: string, city: string,
     country: string, email: string,
@@ -26,14 +27,14 @@ export class UsersService {
     return this.repo.save(user);
   }
 
-  async findAll() {
-    return await this.repo.find({
-      select: ['id', 'firstName', 'lastName', 'birthDate', 'city', 'country', 'email']
-    });
-  }
+  async signIn(email: string, password: string) {
+    const user = await this.repo.findOneBy({ email });
 
-  async findOne(id: string) {
-    return await this.repo.findOneBy({ id });
+    let isPasswordValid = compareSync(password, user.password);
+
+    if (!isPasswordValid) throw new UnauthorizedException;
+
+    return user;
   }
 
   async update(id: string, data) {
