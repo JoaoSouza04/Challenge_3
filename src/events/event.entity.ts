@@ -1,20 +1,18 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { IsTimeZone } from 'class-validator';
+import { Entity, Column, CreateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Event {
 
-  @PrimaryGeneratedColumn()
-  userId: Number
+  @PrimaryGeneratedColumn('uuid')
+  userId: string
 
   @Column()
-  Description: String
+  description: String
 
-  @Column()
-  dateTime: Date
+  @CreateDateColumn()
+  dateTime: string
 
-  @Column()
-  createdAt: Date
-
-  @Column()
-  day: Number
+  @CreateDateColumn()
+  createdAt: string
 }
