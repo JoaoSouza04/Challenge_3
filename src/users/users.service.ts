@@ -37,10 +37,10 @@ export class UsersService {
     return user;
   }
 
-  async update(id: string, data) {
+  async update(id: string, data: UpdateUserDto) {
 
     const user = await this.repo.findOneBy({ id });
-    console.log(user)
+
     this.repo.merge(user, data);
     return await this.repo.save(user);
   }
